@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+
+TOKEN="{{ telegram_bot_token }}"
+ID="{{ telegram_chat_id }}"
+HOSTNAME=$(hostname -f)
+DATE="$(date +"⏰ %H:%M:%S on %d %b %Y")"
+TIMEZONE="$(date +"%Z")"
+
+case "$PAM_TYPE" in
+    "open_session")
+        ACTION_EMOJI="🟢"
+        ACTION_DESC="SSH Login"
+        ;;
+    "close_session")
+        ACTION_EMOJI="🔴"
+        ACTION_DESC="SSH Logout"
+        ;;
+    *)
+        ACTION_EMOJI="🔵"
+        ACTION_DESC="SSH $PAM_TYPE"
+        ;;
+esac
+
+MESSAGE="$ACTION_EMOJI $ACTION_DESC: $PAM_USER@$HOSTNAME from $PAM_RHOST at $DATE ($TIMEZONE)"
+
+URL="https://api.telegram.org/bot$TOKEN/sendMessage"
+
+curl -s -X POST "$URL" \
+    -d "chat_id=$ID" \
+    -d "text=$MESSAGE" \
+    -d "parse_mode=HTML" \
+    -d "disable_notification=false" \
+    > /dev/null 2>&1
+
+exit 0

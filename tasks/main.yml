@@ -1,0 +1,48 @@
+---
+- name: "Ensure required packages are installed"
+  ansible.builtin.package:
+    name:
+      - curl
+      - libpam-modules
+    state: present
+  become: true
+
+- name: "Ensure PAM scripts directory exists"
+  ansible.builtin.file:
+    path: "{{ pam_script_directory }}"
+    state: directory
+    owner: root
+    group: root
+    mode: "0755"
+  become: true
+
+- name: "Deploy Telegram notification script"
+  ansible.builtin.template:
+    src: login.sh.j2
+    dest: "{{ pam_script_path }}"
+    owner: root
+    group: root
+    mode: "0755"
+  become: true
+  notify: restart ssh
+
+- name: "Verify telegram configuration is set"
+  ansible.builtin.fail:
+    msg: "Please set telegram_bot_token and telegram_chat_id variables"
+  when: telegram_bot_token == "" or telegram_chat_id == ""
+
+- name: "Add PAM exec configuration to sshd"
+  ansible.builtin.lineinfile:
+    path: "{{ pam_sshd_config_path }}"
+    line: "{{ pam_exec_line }}"
+    state: present
+    backup: yes
+  become: true
+  notify: restart ssh
+
+- name: "Verify PAM configuration syntax"
+  ansible.builtin.command: "pamtester ssh {{ ansible_user | default('root') }} authenticate"
+  register: pam_test
+  become: true
+  failed_when: false
+  changed_when: false

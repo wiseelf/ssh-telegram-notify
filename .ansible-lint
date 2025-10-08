@@ -1,0 +1,18 @@
+---
+profile: production
+
+exclude_paths:
+  - .cache/
+  - .github/
+  - molecule/
+  - .yamllint
+
+skip_list:
+  - yaml[line-length] # Allow long lines in some cases
+  - name[casing] # Allow flexible task naming
+  - role-name
+
+warn_list:
+  - experimental # Experimental rules as warnings
+
+use_default_rules: true

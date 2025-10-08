@@ -1,0 +1,13 @@
+---
+# Telegram bot configuration
+telegram_bot_token: ""
+telegram_chat_id: ""
+
+# Script configuration
+pam_script_directory: "/etc/pam.scripts"
+pam_script_name: "login.sh"
+pam_script_path: "{{ pam_script_directory }}/{{ pam_script_name }}"
+
+# PAM configuration
+pam_sshd_config_path: "/etc/pam.d/sshd"
+pam_exec_line: "session    optional     pam_exec.so {{ pam_script_path }}"

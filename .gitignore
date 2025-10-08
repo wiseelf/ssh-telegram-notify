@@ -1,0 +1,29 @@
+# Ansible
+.roles/
+*.retry
+.ansible/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Node.js (semantic-release)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Pre-commit
+.pre-commit-cache/
+
+# Logs
+*.log
+
+# Test files
+test-playbook.yml
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
