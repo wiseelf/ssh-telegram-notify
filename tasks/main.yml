@@ -36,9 +36,9 @@
     path: "{{ pam_sshd_config_path }}"
     line: "{{ pam_exec_line }}"
     state: present
-    backup: yes
+    backup: true
   become: true
-  notify: restart ssh
+  notify: Restart ssh
 
 - name: "Verify PAM configuration syntax"
   ansible.builtin.command: "pamtester ssh {{ ansible_user | default('root') }} authenticate"
