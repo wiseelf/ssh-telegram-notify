@@ -13,7 +13,7 @@
     state: directory
     owner: root
     group: root
-    mode: "0755"
+    mode: "0700"
   become: true
 
 - name: "Deploy Telegram notification script"
@@ -22,7 +22,7 @@
     dest: "{{ pam_script_path }}"
     owner: root
     group: root
-    mode: "0755"
+    mode: "0700"
   become: true
   notify: Restart ssh
 
