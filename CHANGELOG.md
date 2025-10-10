@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.3](https://github.com/wiseelf/ssh-telegram-notify/compare/v1.0.2...v1.0.3) (2025-10-10)
+
+
+### Bug Fixes
+
+* Change permissions to 0700 ([a6dca71](https://github.com/wiseelf/ssh-telegram-notify/commit/a6dca71930f3f8362e036a4d27e863043bc5c946))
+
 ## [1.0.2](https://github.com/wiseelf/ssh-telegram-notify/compare/v1.0.1...v1.0.2) (2025-10-08)
 
 
